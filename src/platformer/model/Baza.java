@@ -5,9 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-/**
- * Created by Daniel on 4.5.2016..
- */
 public class Baza extends Konekcija {
 
     private Statement upit;

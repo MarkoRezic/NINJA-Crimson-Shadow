@@ -15,22 +15,22 @@ public class Player extends MapObject {
 	// player stuff
 	private int health;
 	private int maxHealth;
-	private int fire;
-	private int maxFire;
+	private int shurikenCount;
+	private int maxShurikens;
 	private boolean dead;
 	private boolean flinching;
 	private long flinchTimer;
 	
 	// fireball
-	private boolean firing;
-	private int fireCost;
-	private int fireBallDamage;
+	private boolean throwing;
+	private int throwCost;
+	private int shurikenDamage;
 	private ArrayList<Shuriken> shurikens;
 	
 	// scratch
-	private boolean scratching;
-	private int scratchDamage;
-	private int scratchRange;
+	private boolean slicing;
+	private int sliceDamage;
+	private int sliceRange;
 	
 	// gliding
 	private boolean gliding;
@@ -53,8 +53,8 @@ public class Player extends MapObject {
 	private static final int JUMPING = 2;
 	private static final int FALLING = 3;
 	private static final int GLIDING = 4;
-	private static final int FIREBALL = 5;
-	private static final int SCRATCHING = 6;
+	private static final int THROWING = 5;
+	private static final int SLICING = 6;
 	private static final int DIVING = 7;
 
 	private Random r = new Random();
@@ -82,14 +82,14 @@ public class Player extends MapObject {
 		facingRight = true;
 		
 		health = maxHealth = 5;
-		fire = maxFire = 600;
+		shurikenCount = maxShurikens = 600;
 		
-		fireCost = 200;
-		fireBallDamage = 5;
+		throwCost = 200;
+		shurikenDamage = 5;
 		shurikens = new ArrayList<Shuriken>();
 		
-		scratchDamage = 8;
-		scratchRange = 50;
+		sliceDamage = 8;
+		sliceRange = 50;
 
 		glideSpeed = 0.3f;
 		diveSpeed = 4f;
@@ -127,11 +127,11 @@ public class Player extends MapObject {
 						frameW = 40;
 						frameH = 60;
 						break;
-					case FIREBALL:
+					case THROWING:
 						frameW = 45;
 						frameH = 30;
 						break;
-					case SCRATCHING:
+					case SLICING:
 						frameW = 80;
 						frameH = 30;
 						break;
@@ -179,15 +179,15 @@ public class Player extends MapObject {
 	
 	public int getHealth() { return health; }
 	public int getMaxHealth() { return maxHealth; }
-	public int getFire() { return fire; }
-	public int getMaxFire() { return maxFire; }
+	public int getShurikenCount() { return shurikenCount; }
+	public int getMaxShurikens() { return maxShurikens; }
 	public boolean isDead() { return dead; }
 	
-	public void setFiring() { 
-		firing = true;
+	public void setThrowing() {
+		throwing = true;
 	}
-	public void setScratching() {
-		scratching = true;
+	public void setSlicing() {
+		slicing = true;
 	}
 	public void setGliding(boolean b) { 
 		gliding = b;
@@ -204,26 +204,26 @@ public class Player extends MapObject {
 			Enemy e = enemies.get(i);
 			
 			// scratch attack
-			if(scratching) {
+			if(slicing) {
 				if(facingRight) {
 					if(
 						e.getx() > x &&
-						e.getx() < x + scratchRange && 
+						e.getx() < x + sliceRange &&
 						e.gety() > y - height / 2 &&
 						e.gety() < y + height / 2
 					) {
-						e.hit(scratchDamage);
+						e.hit(sliceDamage);
 						sfx.get("slash" + (r.nextInt(3) + 1)).play();
 					}
 				}
 				else {
 					if(
 						e.getx() < x &&
-						e.getx() > x - scratchRange &&
+						e.getx() > x - sliceRange &&
 						e.gety() > y - height / 2 &&
 						e.gety() < y + height / 2
 					) {
-						e.hit(scratchDamage);
+						e.hit(sliceDamage);
 						sfx.get("slash" + (r.nextInt(3) + 1)).play();
 					}
 				}
@@ -232,7 +232,7 @@ public class Player extends MapObject {
 			// fireballs
 			for(int j = 0; j < shurikens.size(); j++) {
 				if(shurikens.get(j).intersects(e)) {
-					e.hit(fireBallDamage);
+					e.hit(shurikenDamage);
 					shurikens.get(j).setHit();
 					sfx.get("hitFlesh").play();
 					break;
@@ -329,19 +329,19 @@ public class Player extends MapObject {
 		setPosition(xtemp, ytemp);
 		
 		// check attack has stopped
-		if(currentAction == SCRATCHING) {
-			if(animation.hasPlayedOnce()) scratching = false;
+		if(currentAction == SLICING) {
+			if(animation.hasPlayedOnce()) slicing = false;
 		}
-		if(currentAction == FIREBALL) {
-			if(animation.hasPlayedOnce()) firing = false;
+		if(currentAction == THROWING) {
+			if(animation.hasPlayedOnce()) throwing = false;
 		}
 		
 		// fireball attack
-		fire += 1;
-		if(fire > maxFire) fire = maxFire;
-		if(firing && currentAction != FIREBALL) {
-			if(fire > fireCost) {
-				fire -= fireCost;
+		shurikenCount += 1;
+		if(shurikenCount > maxShurikens) shurikenCount = maxShurikens;
+		if(throwing && currentAction != THROWING) {
+			if(shurikenCount > throwCost) {
+				shurikenCount -= throwCost;
 				Shuriken fb = new Shuriken(tileMap, facingRight);
 				fb.setPosition(x, y);
 				shurikens.add(fb);
@@ -368,20 +368,20 @@ public class Player extends MapObject {
 		}
 		
 		// set animation
-		if(scratching) {
-			if(currentAction != SCRATCHING) {
+		if(slicing) {
+			if(currentAction != SLICING) {
 				sfx.get("sword" + (r.nextInt(5) + 1)).play();
-				currentAction = SCRATCHING;
-				animation.setFrames(sprites.get(SCRATCHING));
+				currentAction = SLICING;
+				animation.setFrames(sprites.get(SLICING));
 				animation.setDelay(20);
 				width = 80;
 				height = 30;
 			}
 		}
-		else if(firing) {
-			if(currentAction != FIREBALL) {
-				currentAction = FIREBALL;
-				animation.setFrames(sprites.get(FIREBALL));
+		else if(throwing) {
+			if(currentAction != THROWING) {
+				currentAction = THROWING;
+				animation.setFrames(sprites.get(THROWING));
 				animation.setDelay(20);
 				width = 45;
 				height = 30;
@@ -436,7 +436,7 @@ public class Player extends MapObject {
 		animation.update();
 		
 		// set direction
-		if(currentAction != SCRATCHING && currentAction != FIREBALL) {
+		if(currentAction != SLICING && currentAction != THROWING) {
 			if(right) facingRight = true;
 			if(left) facingRight = false;
 		}

@@ -4,9 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-/**
- * Created by Daniel on 4.5.2016..
- */
 public class Konekcija {
     private String host;
     private String korisnik;

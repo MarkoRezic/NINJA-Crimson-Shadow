@@ -37,7 +37,7 @@ public class HUD {
 			25
 		);
 		g.drawString(
-			player.getFire() / 200 + "/" + player.getMaxFire() / 200,
+			player.getShurikenCount() / 200 + "/" + player.getMaxShurikens() / 200,
 			30,
 			45
 		);

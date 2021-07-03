@@ -232,7 +232,7 @@ public class Level3State extends GameState {
         }
         //if(k == KeyEvent.VK_E) player.setGliding(true);
         if(k == KeyEvent.VK_S) player.setDiving(true);
-        if(k == KeyEvent.VK_F) player.setFiring();
+        if(k == KeyEvent.VK_F) player.setThrowing();
     }
 
     public void keyReleased(int k) {
@@ -249,8 +249,8 @@ public class Level3State extends GameState {
     }
 
     public void mousePressed(int m){
-        if(m == MouseEvent.BUTTON1) player.setScratching();
-        if(m == MouseEvent.BUTTON3) player.setFiring();
+        if(m == MouseEvent.BUTTON1) player.setSlicing();
+        if(m == MouseEvent.BUTTON3) player.setThrowing();
     }
 
 }
