@@ -1,0 +1,50 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+    -fx-background-color: black;
+    -fx-padding: 5 5 5 5;
+}
+
+.center-column {
+    -fx-alignment: CENTER;
+}
+
+.center-left-column {
+    -fx-alignment: CENTER-LEFT;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+#exitBtn, #refreshBtn, #launchBtn {
+    -fx-background-color: #111;
+    -fx-text-fill: #bbb;
+    -fx-border-radius: 50;
+    -fx-background-radius: 50;
+    -fx-border-color: #bbb;
+    -fx-border-width: 2px;
+    -fx-border-style: solid;
+    -fx-pref-width: 200px;
+    -fx-pref-height: 60px;
+    -fx-font-size: 25px;
+    -fx-font-weight: bold;
+}
+
+#launchBtn {
+    -fx-pref-width: 250px;
+}
+
+#exitBtn:hover, #refreshBtn:hover, #launchBtn:hover {
+    -fx-background-color: #333;
+    -fx-text-fill: white;
+    -fx-border-color: white;
+    -fx-cursor: hand;
+}
+
+#exitBtn:focused, #refreshBtn:focused, #launchBtn:focused {
+    -fx-background-color: #333;
+    -fx-text-fill: white;
+    -fx-border-width: 5px;
+    -fx-border-color: white;
+}

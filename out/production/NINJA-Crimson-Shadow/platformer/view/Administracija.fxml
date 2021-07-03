@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?><?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import java.net.URL?>
+<?import javafx.scene.image.Image?>
+<GridPane prefHeight="400.0" styleClass="mainFxmlClass" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="platformer.controller.AdministracijaKontroler">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="800.0" minWidth="10.0" prefWidth="400.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="70.0" prefHeight="70.0" maxHeight="70.0" />
+  </rowConstraints>
+   <children>
+      <TableView id="usersTbl" fx:id="usersTable" editable="true">
+        <columns>
+          <TableColumn styleClass="center-left-column" id="idCol" fx:id="idCol" text="ID" />
+          <TableColumn minWidth="100.0" styleClass="center-left-column" id="usernameCol" fx:id="usernameCol" text="Username" />
+          <TableColumn styleClass="center-left-column" id="roleCol" fx:id="roleCol" text="Role" />
+          <TableColumn minWidth="240.0" styleClass="center-left-column" id="highscoreCol" fx:id="highscoreCol" text="Highscores">
+                  <columns>
+                      <TableColumn minWidth="80.0" styleClass="center-column" id="level1Col" fx:id="level1Col" text="Level 1" />
+                      <TableColumn minWidth="80.0" styleClass="center-column" id="level2Col" fx:id="level2Col" text="Level 2" />
+                      <TableColumn minWidth="80.0" styleClass="center-column" id="level3Col" fx:id="level3Col" text="Level 3" />
+                  </columns>
+          </TableColumn>
+          <TableColumn styleClass="center-column" id="resetCol" fx:id="resetCol" text="Reset" />
+          <TableColumn styleClass="center-column" id="promoteCol" fx:id="promoteCol" text="Promote" />
+          <TableColumn styleClass="center-column" id="deleteCol" fx:id="deleteCol" text="Delete" />
+        </columns>
+      </TableView>
+       <fx:define>
+           <Image fx:id="promoteBtnIcon" url="/resources/images/promoteIcon.png" />
+       </fx:define>
+       <fx:define>
+           <Image fx:id="deleteBtnIcon" url="/resources/images/deleteIcon.png" />
+       </fx:define>
+       <Button fx:id="exitBtn" onAction="#openLogin" id="exitBtn" mnemonicParsing="false" text="Exit" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+       <Button fx:id="refreshBtn" onAction="#updateTable" id="refreshBtn" mnemonicParsing="false" text="Refresh" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+       <Button fx:id="launchBtn" onAction="#launchGame" id="launchBtn" mnemonicParsing="false" text="Launch Game" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+   </children>
+    <stylesheets>
+        <URL value="@Administracija.css" />
+    </stylesheets>
+</GridPane>
