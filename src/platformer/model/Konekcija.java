@@ -32,7 +32,7 @@ public class Konekcija {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             this.konekcija = DriverManager.getConnection("jdbc:mysql://"+this.host+"/"+this.baza+"?"
-                    + "user="+this.korisnik+"&password="+this.lozinka);
+                    + "user="+this.korisnik+"&password="+this.lozinka+"&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
         } catch (ClassNotFoundException e) {
             System.out.println ("Sustav nije uspio pronaći klasu za konekciju na MYSQL...");
         } catch (SQLException e) {
