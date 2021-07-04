@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Main" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="platformer.GameStart" />
+    <module name="NINJA-Crimson-Shadow" />
+    <option name="VM_PARAMETERS" value="--module-path lib\javafx-sdk-15.0.1\lib --add-modules javafx.base,javafx.controls,javafx.fxml,javafx.media" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
