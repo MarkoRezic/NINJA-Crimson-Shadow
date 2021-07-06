@@ -71,6 +71,7 @@ public class Level1State extends GameState {
 		for(int i = 0; i<3; i++){ sfx.put("death"+(i+1), new ClipPlayer("/resources/SFX/death"+(i+1)+".mp3")); }
 		
 		bgMusic = new AudioPlayer("/resources/music/level1.mp3");
+		bgMusic.mediaPlayer.setMute(NinjaMenuApp.isMusicMute);
 		bgMusic.mediaPlayer.setVolume(NinjaMenuApp.masterVolume);
 		bgMusic.stop();
 		bgMusic.play();

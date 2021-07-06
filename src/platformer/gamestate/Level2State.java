@@ -51,14 +51,14 @@ public class Level2State extends GameState {
 
         tileMap = new TileMap(30);
         tileMap.loadTiles("/resources/tilesets/ninja_tileset.png");
-        tileMap.loadMap("/resources/maps/level1_map.map");
+        tileMap.loadMap("/resources/maps/level2_map.map");
         tileMap.setPosition(0, 0);
         tileMap.setTween(0.07);
 
-        bg = new Background("/resources/backgrounds/level2bg.jpg", 0.2);
+        bg = new Background("/resources/backgrounds/level2bg.jpg", 0.1);
 
         player = new Player(tileMap);
-        player.setPosition(100, 100);
+        player.setPosition(60, 20);
 
         populateEnemies();
         getCheckpoints();
@@ -70,7 +70,8 @@ public class Level2State extends GameState {
         sfx = new HashMap<String, ClipPlayer>();
         for(int i = 0; i<3; i++){ sfx.put("death"+(i+1), new ClipPlayer("/resources/SFX/death"+(i+1)+".mp3")); }
 
-        bgMusic = new AudioPlayer("/resources/music/level1.mp3");
+        bgMusic = new AudioPlayer("/resources/music/level2.mp3");
+        bgMusic.mediaPlayer.setMute(NinjaMenuApp.isMusicMute);
         bgMusic.mediaPlayer.setVolume(NinjaMenuApp.masterVolume);
         bgMusic.stop();
         bgMusic.play();
@@ -83,12 +84,21 @@ public class Level2State extends GameState {
 
         RedNinja r;
         Point[] points = new Point[] {
-                new Point(420, 110),
-                new Point(1000, 170),
-                new Point(1525, 170),
-                new Point(1680, 170),
-                new Point(1800, 170),
-                new Point(2350, 170)
+                new Point(170, 60),
+                new Point(250, 60),
+                new Point(360, 60),
+                new Point(500, 60),
+                new Point(620, 60),
+                new Point(1200, 180),
+                new Point(1180, 80),
+                new Point(2450, 180),
+                new Point(2500, 180),
+                new Point(2600, 180),
+                new Point(2650, 180),
+                new Point(2700, 180),
+                new Point(2800, 180),
+                new Point(3660, 180),
+                new Point(3820, 150)
         };
         for(int i = 0; i < points.length; i++) {
             r = new RedNinja(tileMap);
@@ -101,13 +111,14 @@ public class Level2State extends GameState {
     private void getCheckpoints() {
 
         checkpoints = new Point[] {
-                new Point(100, 100),
-                new Point(450, 80),
-                new Point(700, 150),
-                new Point(1100, 150),
-                new Point(1400, 120),
-                new Point(1900, 100),
-                new Point(3050, 170)
+                new Point(60, 30),
+                new Point(640, 30),
+                new Point(1060, 150),
+                new Point(1460, 0),
+                new Point(2360, 100),
+                new Point(3180, 160),
+                new Point(3510, 150),
+                new Point(4060, 150)
         };
         lastCheckpoint = 0;
 

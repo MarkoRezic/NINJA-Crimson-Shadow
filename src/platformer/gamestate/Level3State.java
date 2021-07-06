@@ -51,14 +51,14 @@ public class Level3State extends GameState {
 
         tileMap = new TileMap(30);
         tileMap.loadTiles("/resources/tilesets/ninja_tileset.png");
-        tileMap.loadMap("/resources/maps/level1_map.map");
+        tileMap.loadMap("/resources/maps/level3_map.map");
         tileMap.setPosition(0, 0);
         tileMap.setTween(0.07);
 
-        bg = new Background("/resources/backgrounds/level3bg.jpg", 0.4);
+        bg = new Background("/resources/backgrounds/level3bg.jpg", 0.3);
 
         player = new Player(tileMap);
-        player.setPosition(100, 100);
+        player.setPosition(520, 40);
 
         populateEnemies();
         getCheckpoints();
@@ -70,7 +70,8 @@ public class Level3State extends GameState {
         sfx = new HashMap<String, ClipPlayer>();
         for(int i = 0; i<3; i++){ sfx.put("death"+(i+1), new ClipPlayer("/resources/SFX/death"+(i+1)+".mp3")); }
 
-        bgMusic = new AudioPlayer("/resources/music/level1.mp3");
+        bgMusic = new AudioPlayer("/resources/music/level3.mp3");
+        bgMusic.mediaPlayer.setMute(NinjaMenuApp.isMusicMute);
         bgMusic.mediaPlayer.setVolume(NinjaMenuApp.masterVolume);
         bgMusic.stop();
         bgMusic.play();
@@ -83,12 +84,86 @@ public class Level3State extends GameState {
 
         RedNinja r;
         Point[] points = new Point[] {
-                new Point(420, 110),
-                new Point(1000, 170),
-                new Point(1525, 170),
-                new Point(1680, 170),
-                new Point(1800, 170),
-                new Point(2350, 170)
+                new Point(330, 0),
+                new Point(300, 0),
+                new Point(270, 0),
+                new Point(240, 0),
+                new Point(210, 0),
+                new Point(180, 0),
+                new Point(150, 0),
+                new Point(120, 0),
+                new Point(90, 0),
+                new Point(60, 0),
+                new Point(30, 0),
+                new Point(330, 60),
+                new Point(300, 60),
+                new Point(270, 60),
+                new Point(240, 60),
+                new Point(210, 60),
+                new Point(180, 60),
+                new Point(150, 60),
+                new Point(120, 60),
+                new Point(90, 60),
+                new Point(60, 60),
+                new Point(30, 60),
+                new Point(330, 120),
+                new Point(300, 120),
+                new Point(270, 120),
+                new Point(240, 120),
+                new Point(210, 120),
+                new Point(180, 120),
+                new Point(150, 120),
+                new Point(120, 120),
+                new Point(90, 120),
+                new Point(60, 120),
+                new Point(30, 120),
+                new Point(240, 240),
+                new Point(210, 240),
+                new Point(180, 240),
+                new Point(150, 240),
+                new Point(120, 240),
+                new Point(90, 240),
+                new Point(60, 240),
+                new Point(30, 240),
+                new Point(690, 0),
+                new Point(720, 0),
+                new Point(750, 0),
+                new Point(780, 0),
+                new Point(810, 0),
+                new Point(840, 0),
+                new Point(870, 0),
+                new Point(900, 0),
+                new Point(930, 0),
+                new Point(960, 0),
+                new Point(690, 60),
+                new Point(720, 60),
+                new Point(750, 60),
+                new Point(780, 60),
+                new Point(810, 60),
+                new Point(840, 60),
+                new Point(870, 60),
+                new Point(900, 60),
+                new Point(930, 60),
+                new Point(960, 270),
+                new Point(780, 270),
+                new Point(810, 270),
+                new Point(840, 270),
+                new Point(870, 270),
+                new Point(900, 270),
+                new Point(930, 270),
+                new Point(960, 270),
+                new Point(630, 0),
+                new Point(630, 30),
+                new Point(630, 60),
+                new Point(630, 90),
+                new Point(630, 150),
+                new Point(630, 210),
+                new Point(390, 0),
+                new Point(390, 30),
+                new Point(390, 60),
+                new Point(390, 90),
+                new Point(390, 150),
+                new Point(390, 210),
         };
         for(int i = 0; i < points.length; i++) {
             r = new RedNinja(tileMap);
@@ -101,12 +176,7 @@ public class Level3State extends GameState {
     private void getCheckpoints() {
 
         checkpoints = new Point[] {
-                new Point(100, 100),
-                new Point(450, 80),
-                new Point(700, 150),
-                new Point(1100, 150),
-                new Point(1400, 120),
-                new Point(1900, 100),
+                new Point(520, 40),
                 new Point(3050, 170)
         };
         lastCheckpoint = 0;
@@ -119,8 +189,8 @@ public class Level3State extends GameState {
                 lastCheckpoint = i;
             }
         }
-
-        if(lastCheckpoint == checkpoints.length-1){
+        //win condition
+        if(enemies.isEmpty()){
             bgMusic.stop();
             GameStateManager.XP += levelInfo.getBaseXP();
             GameStateManager.score += levelInfo.getBaseScore();
@@ -178,7 +248,7 @@ public class Level3State extends GameState {
     }
 
     public void checkPlayerAbyss(){
-        if(player.gety() >= GamePanel.HEIGHT - player.getCHeight()){
+        if(player.gety() >= tileMap.getHeight() - player.getCHeight()){
             player.hit(1);
             player.setPosition(checkpoints[lastCheckpoint].x, checkpoints[lastCheckpoint].y);
         }

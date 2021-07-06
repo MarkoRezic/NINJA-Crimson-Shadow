@@ -6,6 +6,7 @@ import platformer.tilemap.TileMap;
 
 import java.awt.image.BufferedImage;
 import java.awt.Graphics2D;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 
@@ -16,6 +17,8 @@ public class RedNinja extends Enemy {
 	public RedNinja(TileMap tm) {
 		
 		super(tm);
+
+		Random r = new Random();
 		
 		moveSpeed = 0.5;
 		maxSpeed = 0.5;
@@ -57,9 +60,15 @@ public class RedNinja extends Enemy {
 		animation = new Animation();
 		animation.setFrames(sprites);
 		animation.setDelay(100);
-		
-		right = true;
-		facingRight = true;
+
+		if(r.nextFloat() > 0.5) {
+			right = true;
+			facingRight = true;
+		}
+		else {
+			left = true;
+			facingRight = false;
+		}
 		
 	}
 	

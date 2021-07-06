@@ -55,7 +55,7 @@ public class NinjaMenuHSList extends Pane {
                 number_highscore_list[level][pos].setFill(Color.WHITE);
                 number_highscore_list[level][pos].setEffect(glow);
                 number_highscore_list[level][pos].setBoundsType(TextBoundsType.VISUAL);
-                number_highscore_list[level][pos].setWrappingWidth(40);
+                number_highscore_list[level][pos].setWrappingWidth(50);
                 number_highscore_list[level][pos].setTextAlignment(TextAlignment.RIGHT);
             }
         }
