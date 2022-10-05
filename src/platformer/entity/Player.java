@@ -1,6 +1,7 @@
 package platformer.entity;
 
 import platformer.audio.ClipPlayer;
+import platformer.entity.Enemies.RedNinja;
 import platformer.tilemap.*;
 
 import java.util.ArrayList;
@@ -212,8 +213,11 @@ public class Player extends MapObject {
 						e.gety() > y - height / 2 &&
 						e.gety() < y + height / 2
 					) {
+						if(!e.flinching){
+							((RedNinja)e).setHitDirection(1);
+							sfx.get("slash" + (r.nextInt(3) + 1)).play();
+						}
 						e.hit(sliceDamage);
-						sfx.get("slash" + (r.nextInt(3) + 1)).play();
 					}
 				}
 				else {
@@ -223,8 +227,11 @@ public class Player extends MapObject {
 						e.gety() > y - height / 2 &&
 						e.gety() < y + height / 2
 					) {
+						if(!e.flinching){
+							((RedNinja)e).setHitDirection(-1);
+							sfx.get("slash" + (r.nextInt(3) + 1)).play();
+						}
 						e.hit(sliceDamage);
-						sfx.get("slash" + (r.nextInt(3) + 1)).play();
 					}
 				}
 			}
@@ -232,9 +239,9 @@ public class Player extends MapObject {
 			// fireballs
 			for(int j = 0; j < shurikens.size(); j++) {
 				if(shurikens.get(j).intersects(e)) {
+					if(!e.flinching) sfx.get("hitFlesh").play();
 					e.hit(shurikenDamage);
 					shurikens.get(j).setHit();
-					sfx.get("hitFlesh").play();
 					break;
 				}
 			}

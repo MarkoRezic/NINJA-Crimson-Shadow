@@ -123,7 +123,7 @@ public class WinState extends GameState {
         if(currentChoice == 1) {
             // level select
             gsm.setState(GameStateManager.MENUSTATE);
-            NinjaMenuApp.menuMusic.play();
+            NinjaMenuApp.menuMusic.playLoop();
         }
         if(currentChoice == 2) {
             // quit
@@ -134,7 +134,7 @@ public class WinState extends GameState {
                 public void run() {
                     Stage stage = (Stage) NinjaMenuApp.root.getScene().getWindow();
                     stage.show();
-                    NinjaMenuApp.menuMusic.play();
+                    NinjaMenuApp.menuMusic.playLoop();
                 }
             };
             Platform.runLater(showMenu);

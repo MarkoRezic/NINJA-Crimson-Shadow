@@ -74,7 +74,7 @@ public class Level1State extends GameState {
 		bgMusic.mediaPlayer.setMute(NinjaMenuApp.isMusicMute);
 		bgMusic.mediaPlayer.setVolume(NinjaMenuApp.masterVolume);
 		bgMusic.stop();
-		bgMusic.play();
+		bgMusic.playLoop();
 		
 	}
 	

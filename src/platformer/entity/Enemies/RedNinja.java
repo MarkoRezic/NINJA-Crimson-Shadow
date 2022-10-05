@@ -4,8 +4,8 @@ import platformer.entity.*;
 import platformer.gamepanel.GamePanel;
 import platformer.tilemap.TileMap;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.awt.Graphics2D;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
@@ -13,6 +13,9 @@ import javax.imageio.ImageIO;
 public class RedNinja extends Enemy {
 	
 	private BufferedImage[] sprites;
+
+	private int hitDirection;
+	private float slowSpeed;
 	
 	public RedNinja(TileMap tm) {
 		
@@ -30,8 +33,11 @@ public class RedNinja extends Enemy {
 		cwidth = 20;
 		cheight = 30;
 		
-		health = maxHealth = 2;
+		health = maxHealth = 20;
 		damage = 1;
+
+		hitDirection = 0;
+		slowSpeed = 0.1f;
 		
 		// load sprites
 		try {
@@ -71,21 +77,33 @@ public class RedNinja extends Enemy {
 		}
 		
 	}
+
+	public void setHitDirection(int direction){
+
+		hitDirection = direction;
+		dx = 2.5 * direction;
+
+	}
 	
 	private void getNextPosition() {
 		
 		// movement
-		if(left) {
-			dx -= moveSpeed;
-			if(dx < -maxSpeed) {
-				dx = -maxSpeed;
+		if(!flinching) {
+			if (left) {
+				dx -= moveSpeed;
+				if (dx < -maxSpeed) {
+					dx = -maxSpeed;
+				}
+			} else if (right) {
+				dx += moveSpeed;
+				if (dx > maxSpeed) {
+					dx = maxSpeed;
+				}
 			}
 		}
-		else if(right) {
-			dx += moveSpeed;
-			if(dx > maxSpeed) {
-				dx = maxSpeed;
-			}
+		else{
+			dx = dx - hitDirection * slowSpeed;
+			if(dx >= -slowSpeed && dx <= slowSpeed) dx = 0;
 		}
 		
 		// falling
@@ -106,21 +124,21 @@ public class RedNinja extends Enemy {
 		if(flinching) {
 			long elapsed =
 				(System.nanoTime() - flinchTimer) / 1000000;
-			if(elapsed > 400) {
+			if(elapsed > 600) {
 				flinching = false;
 			}
 		}
-		
-		// if it hits a wall, go other direction
-		if(right && dx == 0) {
-			right = false;
-			left = true;
-			facingRight = false;
-		}
-		else if(left && dx == 0) {
-			right = true;
-			left = false;
-			facingRight = true;
+		else {
+			// if it hits a wall, go other direction
+			if (right && dx == 0) {
+				right = false;
+				left = true;
+				facingRight = false;
+			} else if (left && dx == 0) {
+				right = true;
+				left = false;
+				facingRight = true;
+			}
 		}
 		
 		// update animation
@@ -132,9 +150,20 @@ public class RedNinja extends Enemy {
 		setMapPosition();
 		if(notOnScreen()) return;
 
+		if(flinching) {
+			long elapsed =
+					(System.nanoTime() - flinchTimer) / 1000000;
+			if(elapsed / 100 % 3 == 0) {
+				return;
+			}
+		}
 		
 		super.draw(g);
-		
+		g.setColor(new Color(255 - (int)(((float)health/maxHealth)*255), (int)(((float)health/maxHealth)*255), 0));
+		g.fillRect((int)(x + xmap - width / 2),
+				(int)(y + ymap - height / 2 - 4),
+				(int)(((float)health/maxHealth)*30),
+				3);
 	}
 	
 }
